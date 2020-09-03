@@ -1,0 +1,22 @@
+{
+  "name": "js-adv-exercises-2",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "JavaScript Advanced Exercises 2",
+  "repository": "https://github.com/aegomez/js-adv-exercises-2",
+  "author": "Adrian Gomez <aegomez@tekmexico.com>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint",
+    "test": "jest",
+    "test-watch": "jest --watch"
+  },
+  "devDependencies": {
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "jest": "^26.4.2",
+    "prettier": "^2.1.1"
+  }
+}
