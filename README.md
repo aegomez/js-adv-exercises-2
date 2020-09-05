@@ -8,6 +8,8 @@ JavaScript Advanced Exercises 2
 
 2. Implement an array flattening function with recursive and iterative versions. Do not use the built-in function.
 
+3. Given a representation of a binary tree, implement a function that can traverse all nodes in prefix, infix, and postfix order.
+
 ## Author
 
 Adrian Gomez
