@@ -64,7 +64,31 @@ describe('createTree', () => {
 
   test('rejects a variety of invalid syntaxes', () => {
     expect(() => {
+      createTree('X(Y)');
+    }).toThrow('Invalid syntax: elements outside of braces');
+
+    expect(() => {
+      createTree('(XY),Z');
+    }).toThrow('Invalid syntax: elements outside of braces');
+
+    expect(() => {
+      createTree('(X, (YY,), (ZZZ,,))))');
+    }).toThrow('Invalid syntax: elements outside of braces');
+
+    expect(() => {
+      createTree('(ab)c');
+    }).toThrow('Invalid syntax: nodes are not separated by commas');
+
+    expect(() => {
+      createTree('(a,(b)(c))');
+    }).toThrow('Invalid syntax: nodes are not separated by commas');
+
+    expect(() => {
       createTree('(Foo,(Bar,),(,))');
+    }).toThrow('Invalid syntax: a node has no value');
+
+    expect(() => {
+      createTree('(Foo,(),)');
     }).toThrow('Invalid syntax: a node has no value');
 
     expect(() => {
@@ -76,11 +100,7 @@ describe('createTree', () => {
     }).toThrow('Invalid syntax: a node child is not a node or null');
 
     expect(() => {
-      createTree('(A, (B,), (C,,)))');
-    }).toThrow('Invalid syntax: unbalanced number of braces');
+      createTree('(((The Node)))');
+    }).toThrow('Invalid syntax: nodes are not separated by commas');
   });
-
-  expect(() => {
-    createTree('(((The Node)))');
-  }).toThrow('Unexpected token');
 });
