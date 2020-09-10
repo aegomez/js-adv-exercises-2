@@ -102,5 +102,9 @@ describe('createTree', () => {
     expect(() => {
       createTree('(((The Node)))');
     }).toThrow('Invalid syntax: nodes are not separated by commas');
+
+    expect(() => {
+      createTree('');
+    }).toThrow('Input string is not valid');
   });
 });

@@ -3,6 +3,9 @@
  * @param {String} input (value, leftNode, rightNode)
  */
 function createTree(input) {
+  if (typeof input !== 'string' || input.length < 3) {
+    throw new Error('Input string is not valid');
+  }
   const rootNode = { value: null };
   const parentStack = [];
   let newNodeValue = '';
