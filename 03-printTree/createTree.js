@@ -1,25 +1,71 @@
 /**
- * Create a binary tree object, based on a string input;
- * @param {String} treeString (value, leftNode, rightNode)
+ * Create a binary tree object, based on a valid string input.
+ * @param {String} input (value, leftNode, rightNode)
  */
-function createTree(treeString) {
-  const nodeArray = treeString.slice(1, treeString.length - 1).split(/,\(?/);
-  let nodeIndex = 0;
+function createTree(input) {
+  // saves the number of parsed commas in each node
+  const commaStack = [];
+  let jsonString = '';
+  let newNodeValue = '';
 
-  function createNode() {
-    const nextNode = nodeArray[nodeIndex++];
-    const braceIndex = nextNode.indexOf(')');
+  // parse the input and format it as a valid JSON string
+  for (let i = 0; i < input.length; i++) {
+    const currentNodeCommas = commaStack[commaStack.length - 1];
+    const previousChildIsNull = jsonString[jsonString.length - 1] === ':';
+    let next = input[i];
 
-    if (nextNode === '') {
-      return null;
+    if (next === ',') {
+      if (currentNodeCommas === 0) {
+        if (!newNodeValue) {
+          throw new Error('Invalid syntax: a node has no value');
+        }
+        next += `"left":`;
+      } else if (currentNodeCommas === 1) {
+        next = `${previousChildIsNull ? 'null' : ''},"right":`;
+      } else {
+        throw new Error('Invalid syntax: a node has more than two children');
+      }
+      commaStack[commaStack.length - 1]++;
+    } else if (next === '(') {
+      next = '{';
+      commaStack.push(0);
+    } else if (next === ')') {
+      if (!commaStack.length) {
+        throw new Error('Invalid syntax: unbalanced number of braces');
+      }
+      next = previousChildIsNull ? 'null' : '';
+      if (currentNodeCommas === 0) {
+        next = `,"left":null,"right":null`;
+      } else if (currentNodeCommas === 1) {
+        next += ',"right":null';
+      }
+      next += '}';
+      commaStack.pop();
+    } else {
+      if (next.match(/\S/)) {
+        if (currentNodeCommas > 0) {
+          throw new Error('Invalid syntax: a node child is not a node or null');
+        }
+        newNodeValue += next;
+      }
+      next = '';
     }
-    if (braceIndex < 0) {
-      return { value: nextNode, left: createNode(), right: createNode() };
+
+    if (next && newNodeValue) {
+      next = `"value":"${newNodeValue}"${next}`;
+      newNodeValue = '';
     }
-    return { value: nextNode.slice(0, braceIndex), left: null, right: null };
+
+    jsonString += next;
   }
 
-  return createNode();
+  if (commaStack.length) {
+    throw new Error('Invalid syntax: unbalanced number of braces');
+  }
+
+  // try to convert the string into an object,
+  // possibly detecting other syntax errors
+  return JSON.parse(jsonString);
 }
 
 module.exports = { createTree };

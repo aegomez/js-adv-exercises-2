@@ -8,6 +8,9 @@ const { infix, prefix, postfix } = require('./traverseTree');
  * @param {String} order 'infix' (default) | 'prefix' | 'postfix'
  */
 function printTree(tree, order) {
+  if (typeof tree !== 'string') {
+    throw new Error('tree argument must be a string');
+  }
   const ORDER = order === 'prefix' || order === 'postfix' ? order : 'infix';
 
   // parse the input string and create a tree object
