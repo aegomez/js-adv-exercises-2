@@ -45,7 +45,7 @@ function createTree(input) {
       }
       parentStack.push(newNode);
     } else if (next === ')') {
-      if (input[i + 1] && input[i + 1].match(/[^,)]/)) {
+      if (input[i + 1] && input[i + 1].match(/[^,)\s]/)) {
         throw new Error('Invalid syntax: nodes are not separated by commas');
       }
       if (!currentNode.value && !newNodeValue) {
