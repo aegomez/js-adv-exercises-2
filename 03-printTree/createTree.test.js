@@ -1,4 +1,4 @@
-const { createTree } = require('./createTree');
+const { createTree, IllegalSyntaxError } = require('./createTree');
 
 describe('createTree', () => {
   test('creates a tree object based on an input string', () => {
@@ -65,46 +65,46 @@ describe('createTree', () => {
   test('rejects a variety of invalid syntaxes', () => {
     expect(() => {
       createTree('X(Y)');
-    }).toThrow('Invalid syntax: elements outside of braces');
+    }).toThrow(IllegalSyntaxError);
 
     expect(() => {
       createTree('(XY),Z');
-    }).toThrow('Invalid syntax: elements outside of braces');
+    }).toThrow(IllegalSyntaxError);
 
     expect(() => {
       createTree('(X, (YY,), (ZZZ,,))))');
-    }).toThrow('Invalid syntax: elements outside of braces');
+    }).toThrow(IllegalSyntaxError);
 
     expect(() => {
       createTree('(ab)c');
-    }).toThrow('Invalid syntax: nodes are not separated by commas');
+    }).toThrow(IllegalSyntaxError);
 
     expect(() => {
       createTree('(a,(b)(c))');
-    }).toThrow('Invalid syntax: nodes are not separated by commas');
+    }).toThrow(IllegalSyntaxError);
 
     expect(() => {
       createTree('(Foo,(Bar,),(,))');
-    }).toThrow('Invalid syntax: a node has no value');
+    }).toThrow(IllegalSyntaxError);
 
     expect(() => {
       createTree('(Foo,(),)');
-    }).toThrow('Invalid syntax: a node has no value');
+    }).toThrow(IllegalSyntaxError);
 
     expect(() => {
       createTree('(A,,,)');
-    }).toThrow('Invalid syntax: a node has more than two children');
+    }).toThrow(IllegalSyntaxError);
 
     expect(() => {
       createTree('(1,2,3)');
-    }).toThrow('Invalid syntax: a node child is not a node or null');
+    }).toThrow(IllegalSyntaxError);
 
     expect(() => {
       createTree('(((The Node)))');
-    }).toThrow('Invalid syntax: nodes are not separated by commas');
+    }).toThrow(IllegalSyntaxError);
 
     expect(() => {
       createTree('');
-    }).toThrow('Input string is not valid');
+    }).toThrow(IllegalSyntaxError);
   });
 });

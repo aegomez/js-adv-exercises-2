@@ -1,84 +1,69 @@
-/**
- * Create a binary tree object, based on a valid string input.
- * @param {String} input (value, leftNode, rightNode)
- */
-function createTree(input) {
-  if (typeof input !== 'string' || input.length < 3) {
-    throw new Error('Input string is not valid');
+// eslint-disable-next-line max-classes-per-file
+class IllegalSyntaxError extends Error {}
+
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
   }
-  const rootNode = { value: null };
-  const parentStack = [];
-  let newNodeValue = '';
-
-  if (input[0] === '(') {
-    parentStack.push(rootNode);
-  }
-
-  for (let i = 1; i < input.length; i++) {
-    const currentNode = parentStack[parentStack.length - 1];
-    let next = input[i];
-
-    if (!currentNode) {
-      throw new Error('Invalid syntax: elements outside of braces');
-    }
-
-    if (next === ',') {
-      if (currentNode.left === undefined) {
-        if (!newNodeValue) {
-          throw new Error('Invalid syntax: a node has no value');
-        }
-        currentNode.left = null;
-      } else if (currentNode.right === undefined) {
-        currentNode.right = null;
-      } else {
-        throw new Error('Invalid syntax: a node has more than two children');
-      }
-    } else if (next === '(') {
-      if (currentNode.left === undefined) {
-        throw new Error('Invalid syntax: nodes are not separated by commas');
-      }
-      const newNode = { value: null };
-      if (currentNode.right === undefined) {
-        currentNode.left = newNode;
-      } else {
-        currentNode.right = newNode;
-      }
-      parentStack.push(newNode);
-    } else if (next === ')') {
-      if (input[i + 1] && input[i + 1].match(/[^,)\s]/)) {
-        throw new Error('Invalid syntax: nodes are not separated by commas');
-      }
-      if (!currentNode.value && !newNodeValue) {
-        throw new Error('Invalid syntax: a node has no value');
-      }
-      if (currentNode.left === undefined) {
-        currentNode.left = null;
-      }
-      if (currentNode.right === undefined) {
-        currentNode.right = null;
-      }
-      parentStack.pop();
-    } else {
-      if (next.match(/\S/)) {
-        if (currentNode.left !== undefined) {
-          throw new Error('Invalid syntax: a node child is not a node or null');
-        }
-        newNodeValue += next;
-      }
-      next = '';
-    }
-
-    if (next && newNodeValue) {
-      currentNode.value = newNodeValue;
-      newNodeValue = '';
-    }
-  }
-
-  if (parentStack.length) {
-    throw new Error('Invalid syntax: unbalanced number of braces');
-  }
-
-  return rootNode;
 }
 
-module.exports = { createTree };
+const VALUE_TOKENS = /[^(),]/;
+
+/**
+ * @param {String} str
+ * @param {Number} index
+ */
+function parseValue(str, index) {
+  const start = index;
+  let end = index;
+  while (VALUE_TOKENS.test(str[end])) {
+    end++;
+  }
+  const value = str.substring(start, end);
+  const node = new Node(value);
+  return [end, node];
+}
+
+/**
+ * @param {String} str
+ * @param {Number} index
+ */
+function parseNode(str, index) {
+  if (',)'.indexOf(str[index]) > -1) {
+    return [index, null];
+  }
+  if (str[index] !== '(') {
+    throw new IllegalSyntaxError(index, str[index], '(');
+  }
+  let [index2, node] = parseValue(str, index + 1);
+  if (node.value === '') {
+    throw new IllegalSyntaxError(index2, str[index2], 'not null');
+  }
+  if (str[index2] === ',') {
+    [index2, node.left] = parseNode(str, index2 + 1);
+  }
+  if (str[index2] === ',') {
+    [index2, node.right] = parseNode(str, index2 + 1);
+  }
+  if (str[index2] !== ')') {
+    throw new IllegalSyntaxError(index2, str[index2], ')');
+  }
+  return [index2 + 1, node];
+}
+
+/**
+ * Create a binary tree object, based on a valid string input.
+ * @param {String} tree (value, leftNode, rightNode)
+ */
+function createTree(tree) {
+  const trimmedTree = tree.replace(/\s/g, '');
+  const [index, root] = parseNode(trimmedTree, 0);
+  if (index !== trimmedTree.length) {
+    throw new IllegalSyntaxError(index);
+  }
+  return root;
+}
+
+module.exports = { createTree, IllegalSyntaxError };
