@@ -16,6 +16,8 @@ JavaScript Advanced Exercises 2
 
    - `‘<parent-selector> < <child-selector>’`
 
+5. Traverse a binary tree and determine if the tree is a symmetric.
+
 ## Author
 
 Adrian Gomez
