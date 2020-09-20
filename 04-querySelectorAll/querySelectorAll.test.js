@@ -66,12 +66,33 @@ describe('querySelectorAll', () => {
   });
 
   test('finds elements using a complex selector', () => {
-    const selector = '.note < .list < [id^=li] < ul .bold-item';
+    const selector = 'div + .note < .list < [id^=li] .bold-item';
     const nodes = querySelectorAll(selector);
     const parentIds = nodes.reduce((str, node) => str + node.id, '');
 
     expect(nodes.length).toBe(2);
     expect(nodes[0].nodeName).toBe('DIV');
     expect(parentIds).toBe('24');
+  });
+
+  test('finds and manipulates elements', () => {
+    const section = document.createElement('section');
+    section.innerHTML = `
+    <div class="new">
+      <div class="note 1"><a href=""><span class="special">abc</span></a></div>
+      <div class="note 2">NOT</div>
+      <div class="note 3"><a href=""><span class="special">123</span></a></div>
+    </div>`;
+    document.body.appendChild(section);
+
+    querySelectorAll('div.note < a span.special').forEach(el => {
+      el.classList.add('selected');
+    });
+    const notes = document.querySelectorAll('.new div.note');
+
+    expect(notes.length).toBe(3);
+    expect(notes[0].classList.contains('selected')).toBe(true);
+    expect(notes[1].classList.contains('selected')).toBe(false);
+    expect(notes[2].classList.contains('selected')).toBe(true);
   });
 });
