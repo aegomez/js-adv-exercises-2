@@ -14,7 +14,8 @@ function isSameLevel(tree, n1, n2) {
     throw new Error('Argument is not a number');
   }
 
-  const missingValue = [0];
+  let missingValue = null;
+  let previousDepth = 0;
   const queue = new Queue();
   queue.enqueue({ node: tree, depth: 0 });
 
@@ -22,10 +23,15 @@ function isSameLevel(tree, n1, n2) {
     const { node, depth } = queue.dequeue();
     const { value, children } = node;
 
-    if ((depth && value === n1) || value === n2) {
-      if (missingValue[depth] === undefined) {
-        missingValue[depth] = value === n1 ? n2 : n1;
-      } else if (value === missingValue[depth]) {
+    if (depth !== previousDepth) {
+      previousDepth = depth;
+      missingValue = null;
+    }
+
+    if (depth && (value === n1 || value === n2)) {
+      if (missingValue === null) {
+        missingValue = value === n1 ? n2 : n1;
+      } else if (value === missingValue) {
         return true;
       }
     }
