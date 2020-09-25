@@ -20,6 +20,8 @@ JavaScript Advanced Exercises 2
 
 12. Traverse a binary tree and determine if the tree is a symmetric.
 
+13. Given the root of a tree, write a function that takes two numbers, n1 and n2. Search for these two numbers within the tree and indicate if they are found at the same depth.
+
 ## Author
 
 Adrian Gomez
