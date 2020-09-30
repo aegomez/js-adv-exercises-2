@@ -22,6 +22,8 @@ JavaScript Advanced Exercises 2
 
 13. Given the root of a tree, write a function that takes two numbers, n1 and n2. Search for these two numbers within the tree and indicate if they are found at the same depth.
 
+14. Find the greatest area formed by rectangles of 1's in a binary matrix.
+
 ## Author
 
 Adrian Gomez
