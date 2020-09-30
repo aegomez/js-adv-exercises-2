@@ -22,6 +22,18 @@ describe('greatestArea', () => {
     expect(area).toEqual(5);
   });
 
+  test('Finds greatest area = 10', () => {
+    const matrix = [
+      [1, 1, 1, 1, 0],
+      [1, 0, 1, 1, 1],
+      [1, 1, 0, 1, 0],
+      [1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1],
+    ];
+    const area = greatestArea(matrix);
+    expect(area).toEqual(10);
+  });
+
   test('Finds area of a row matrix', () => {
     const matrix = [[1, 1, 0, 0, 1, 1, 1]];
     const area = greatestArea(matrix);

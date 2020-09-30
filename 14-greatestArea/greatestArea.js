@@ -18,9 +18,11 @@ function greatestArea(matrix) {
 
       // compare with left columns and calculate areas
       while (height[col] < height[stack[stack.length - 1]]) {
-        const firstCol = stack.pop();
-        const h = height[firstCol];
-        const area = (col - firstCol) * h;
+        // height of the first column inside the rectangle
+        const h = height[stack.pop()];
+        // last column - first column outside the rectangle
+        const w = col - 1 - stack[stack.length - 1];
+        const area = w * h;
         if (area > maxArea) {
           maxArea = area;
         }

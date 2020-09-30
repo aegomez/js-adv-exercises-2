@@ -24,6 +24,8 @@ JavaScript Advanced Exercises 2
 
 14. Find the greatest area formed by rectangles of 1's in a binary matrix.
 
+15. Given an array of natural numbers of length N, find the index of that array that balances the left and right sum. If no such position exists, return -1.
+
 ## Author
 
 Adrian Gomez
