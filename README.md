@@ -26,6 +26,8 @@ JavaScript Advanced Exercises 2
 
 15. Given an array of natural numbers of length N, find the index of that array that balances the left and right sum. If no such position exists, return -1.
 
+16. Find the node at the beginning of a loop in a singly linked list.
+
 ## Author
 
 Adrian Gomez
