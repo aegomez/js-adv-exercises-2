@@ -7,31 +7,20 @@ function loopNode(root) {
   if (!root || !root.next) return null;
 
   let slow = root;
-  let fast = root.next;
-  let steps = 1;
-  let stepsLimit = 1;
+  let fast = root;
 
-  // search successive powers of two (Brent's algorithm)
-  while (slow !== fast) {
-    if (fast.next === null) {
+  // search for the loop and its length
+  do {
+    if (fast === null || fast.next === null) {
       // reached end of list, no loop detected
       return null;
     }
-    if (steps === stepsLimit) {
-      steps = 0;
-      stepsLimit *= 2;
-      slow = fast;
-    }
-    fast = fast.next;
-    steps++;
-  }
+    slow = slow.next;
+    fast = fast.next.next;
+  } while (slow !== fast);
 
-  // place slow and fast at a distance = steps (loop length)
+  // reset slow pointer to the first position
   slow = root;
-  fast = root;
-  for (let i = 0; i < steps; i++) {
-    fast = fast.next;
-  }
 
   // find the beginning of the loop
   while (slow !== fast) {
