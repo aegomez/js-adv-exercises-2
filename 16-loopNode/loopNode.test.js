@@ -20,8 +20,31 @@ describe('loopNode', () => {
     expect(node.next.data).toEqual(22);
   });
 
+  test('Resolves a node that points to itself ', () => {
+    const root = new LinkedList('∞');
+    root.next = root;
+
+    const node = loopNode(root);
+    expect(node.data).toEqual('∞');
+    expect(node.next.data).toEqual('∞');
+  });
+
   test('Returns null for a list that has no loops', () => {
     const root = new LinkedList('a', 'b', 'c', 'd');
+
+    const node = loopNode(root);
+    expect(node).toEqual(null);
+  });
+
+  test('Returns null for a single node list', () => {
+    const root = new LinkedList(100);
+
+    const node = loopNode(root);
+    expect(node).toEqual(null);
+  });
+
+  test('Returns null for an empty list', () => {
+    const root = new LinkedList();
 
     const node = loopNode(root);
     expect(node).toEqual(null);
