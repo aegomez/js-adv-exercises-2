@@ -28,6 +28,8 @@ JavaScript Advanced Exercises 2
 
 16. Find the node at the beginning of a loop in a singly linked list.
 
+17. Given a singly linked list as input, determine if the content is a palindrome.
+
 ## Author
 
 Adrian Gomez
