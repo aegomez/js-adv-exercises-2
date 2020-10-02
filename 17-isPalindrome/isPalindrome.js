@@ -4,27 +4,35 @@
  * @param {Object} root Root node of the linked list { data, next }
  */
 function isPalindrome(root) {
-  if (
-    root?.data === null ||
-    root?.data === undefined ||
-    root.next === undefined
-  ) {
+  if (root?.data === undefined || root.next === undefined) {
     return false;
   }
 
-  let data = '';
-  let forward = '';
-  let reverse = '';
-  let node = root;
+  const stack = [];
+  let slow = root;
+  let fast = root;
 
-  while (node !== null) {
-    data = `${node.data}`.toLowerCase().replace(/[^a-z0-9]/g, '');
-    forward += data;
-    reverse = data + reverse;
-    node = node.next;
+  // place the first half of the list into a stack
+  while (fast !== null && fast.next !== null) {
+    stack.push(slow.data);
+    slow = slow.next;
+    fast = fast.next.next;
   }
 
-  return forward === reverse;
+  // if list has odd length, ignore the middle element
+  if (fast !== null) {
+    slow = slow.next;
+  }
+
+  // compare the second half of the list and the stack
+  while (slow !== null) {
+    if (slow.data !== stack.pop()) {
+      return false;
+    }
+    slow = slow.next;
+  }
+
+  return true;
 }
 
 module.exports = { isPalindrome };
