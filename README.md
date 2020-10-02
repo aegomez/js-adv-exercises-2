@@ -30,6 +30,8 @@ JavaScript Advanced Exercises 2
 
 17. Given a singly linked list as input, determine if the content is a palindrome.
 
+18. Implement shorthand deep object property assignment.
+
 ## Author
 
 Adrian Gomez
