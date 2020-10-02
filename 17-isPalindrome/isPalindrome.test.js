@@ -59,12 +59,12 @@ describe('isPalindrome', () => {
     expect(isPalindrome(input2)).toBe(true);
   });
 
-  test('An empty list or a non-linked list are not palindromes', () => {
+  test('An invalid input throws an error', () => {
     const input1 = { data: 'a' };
     const input2 = ['r', 'a', 'd', 'a', 'r'];
 
-    expect(isPalindrome()).toBe(false);
-    expect(isPalindrome(input1)).toBe(false);
-    expect(isPalindrome(input2)).toBe(false);
+    expect(() => isPalindrome()).toThrow('Invalid input');
+    expect(() => isPalindrome(input1)).toThrow('Invalid input');
+    expect(() => isPalindrome(input2)).toThrow('Invalid input');
   });
 });

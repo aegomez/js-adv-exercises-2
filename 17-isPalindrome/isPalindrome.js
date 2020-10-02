@@ -5,7 +5,7 @@
  */
 function isPalindrome(root) {
   if (root?.data === undefined || root.next === undefined) {
-    return false;
+    throw new Error('Invalid input');
   }
 
   const stack = [];
