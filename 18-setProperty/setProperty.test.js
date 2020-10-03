@@ -52,19 +52,19 @@ describe('setProperty', () => {
     };
     const copy = { ...object };
 
-    expect(() => setProperty(object, 'a', 5)).toThrow(
+    expect(() => setProperty(object, 'a.x', 5)).toThrow(
       'not an object, function or array'
     );
-    expect(() => setProperty(object, 'b', 6)).toThrow(
+    expect(() => setProperty(object, 'b.x', 6)).toThrow(
       'not an object, function or array'
     );
-    expect(() => setProperty(object, 'c', 7)).toThrow(
+    expect(() => setProperty(object, 'c.x', 7)).toThrow(
       'not an object, function or array'
     );
-    expect(() => setProperty(object, 'd', 8)).toThrow(
+    expect(() => setProperty(object, 'd.x', 8)).toThrow(
       'not an object, function or array'
     );
-    expect(() => setProperty(object, 'e', 9)).toThrow(
+    expect(() => setProperty(object, 'e.x', 9)).toThrow(
       'not an object, function or array'
     );
 

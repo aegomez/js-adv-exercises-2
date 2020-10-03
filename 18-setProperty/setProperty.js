@@ -16,20 +16,18 @@ function setProperty(obj, path, value) {
   const properties = path.split('.');
   let current = obj;
   let prop;
+  let i;
 
-  for (let i = 0; i < properties.length; i++) {
+  for (i = 0; i < properties.length - 1; i++) {
     prop = properties[i];
     if (!Object.prototype.hasOwnProperty.call(current, prop)) {
       current[prop] = {};
     } else if (!(current[prop] instanceof Object)) {
       throw new Error(`Property ${prop} is not an object, function or array`);
     }
-    if (i < properties.length - 1) {
-      current = current[prop];
-    } else {
-      current[prop] = value;
-    }
+    current = current[prop];
   }
+  current[properties[i]] = value;
 }
 
 module.exports = { setProperty };
