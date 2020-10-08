@@ -32,6 +32,12 @@ JavaScript Advanced Exercises 2
 
 18. Implement shorthand deep object property assignment.
 
+19. Using the provided test functions as a base, make it so that the assert function behaves as the example. The code inside the `index.html` file cannot be altered.
+
+    - All non-delayed tests should appear immediately.
+    - Test delayed B should appear after .5 seconds have elapsed.
+    - Test delayed A should appear after 1 second has elapsed.
+
 ## Author
 
 Adrian Gomez

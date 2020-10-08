@@ -1,0 +1,16 @@
+<ul id="results"></ul>
+<script src="nb-test.js"></script>
+<script type="module">
+  assert(true, 'Outside and before the test block');
+
+  test('TestBlock A', function () {
+    assert(true, 'Inside TestBlock A');
+    setTimeout(() => assert(true, 'test delayed A'), 1000);
+  });
+  assert(true, 'Outside and after the TestBlock A');
+  test('TestBlock B', function () {
+    assert(true, 'Inside TestBlock B');
+    setTimeout(assert, 500, true, 'test delayed B');
+  });
+  assert(true, 'Outside and after TestBlock B');
+</script>
