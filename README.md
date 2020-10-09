@@ -38,6 +38,8 @@ JavaScript Advanced Exercises 2
     - Test delayed B should appear after .5 seconds have elapsed.
     - Test delayed A should appear after 1 second has elapsed.
 
+20. Create a Sierpiński triangle using HTML DIV elements. Allow for the number of divisions to be selected through a UI.
+
 ## Author
 
 Adrian Gomez
