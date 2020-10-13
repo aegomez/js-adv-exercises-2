@@ -11,6 +11,9 @@
     "test": "jest",
     "test-watch": "jest --watch"
   },
+  "dependencies": {
+    "yargs-parser": "^20.2.1"
+  },
   "devDependencies": {
     "eslint": "^7.8.1",
     "eslint-config-airbnb-base": "^14.2.0",

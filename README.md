@@ -40,6 +40,10 @@ JavaScript Advanced Exercises 2
 
 20. Create a Sierpiński triangle using HTML DIV elements. Allow for the number of divisions to be selected through a UI.
 
+## NodeJS
+
+22. Using ASCII characters, create an animated indeterminate loading bar.
+
 ## Author
 
 Adrian Gomez
