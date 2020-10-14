@@ -20,23 +20,18 @@ const COLORS = [
  * @param {String=} options.color (default), black, red, green, yellow, blue, magenta, cyan, white
  */
 function loadingBar(options) {
-  // on exit (ctrl-c) restore terminal configuration
-  process.on('SIGINT', () => {
-    process.stdout.write('\x1b[0m\x1b[?25h');
-    process.exit(0);
-  });
-
   // validate inputs
-  let size = options.size - 2;
-  let { time, foreground, background } = options;
-  const color = `${options.color}`;
+  let { size, time, foreground, background } = { ...options };
+  const color = `${options?.color}`;
 
   if (typeof size !== 'number') {
-    size = 50;
-  } else if (size < 4) {
+    size = 48;
+  } else if (size < 6) {
     size = 4;
   } else if (size > 80) {
-    size = 80;
+    size = 78;
+  } else {
+    size -= 2;
   }
 
   if (typeof time !== 'number') {
@@ -78,7 +73,7 @@ function loadingBar(options) {
   // periodically update bar
   let pos = 0;
 
-  setInterval(() => {
+  const intervalID = setInterval(() => {
     cursorTo(process.stdout, 1 + pos);
     process.stdout.write(background);
     cursorTo(process.stdout, 1 + ((fgLength + pos) % size));
@@ -88,6 +83,16 @@ function loadingBar(options) {
       pos = 0;
     }
   }, time);
+
+  // on exit (ctrl-c) restore terminal and clear interval
+  process.on('SIGINT', () => {
+    clearInterval(intervalID);
+    process.stdout.write('\x1b[0m\x1b[?25h');
+    process.exit(0);
+  });
+
+  // id can be used to cancel the timer
+  return intervalID;
 }
 
 module.exports = loadingBar;
