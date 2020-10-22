@@ -44,6 +44,11 @@ JavaScript Advanced Exercises 2
 
 22. Using ASCII characters, create an animated indeterminate loading bar.
 
+23. Create a script that will calculate the first N prime numbers.
+    - N must be received as a command-line argument
+    - Using ASCII characters create an animated progress bar.
+    - Display the results when done.
+
 ## Author
 
 Adrian Gomez
