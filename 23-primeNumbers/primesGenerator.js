@@ -1,10 +1,10 @@
 // postponed sieve of Eratosthenes
 // algorithm by Will Ness, Tim Peters, David Eppstein
 // https://stackoverflow.com/a/10733621
-function* sieve() {
+function* primes() {
   yield* [2, 3];
   const dict = {};
-  const ps = sieve();
+  const ps = primes();
   ps.next();
   let prime = ps.next().value;
   let primeSquare = prime * prime;
@@ -31,4 +31,4 @@ function* sieve() {
   }
 }
 
-module.exports = sieve;
+module.exports = primes;

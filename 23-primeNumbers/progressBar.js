@@ -1,46 +1,15 @@
 const readline = require('readline');
-const sieve = require('./sieve');
+const primes = require('./primesGenerator');
 
 /**
- * @param {Number} N number of primes
+ * @param {Number} n number of primes
  * @param {Number} width size of the bar
  */
-async function primeNumbers(N, width) {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-  rl.on('close', () => {
-    process.stdout.write('\x1b[0m\x1b[?25h');
-    process.exit(0);
-  });
-  let n = N;
-  const size = width - 10;
-
-  // if n was not initially provided, query the user
-  while (!n) {
-    // eslint-disable-next-line no-await-in-loop
-    const input = await new Promise(resolve => {
-      rl.question('How many numbers should be calculated? ', answer => {
-        resolve(Number.parseInt(answer, 10));
-      });
-    });
-
-    if (Number.isNaN(input)) {
-      rl.write(`${input} is not a number...\n`);
-    } else if (input < 1) {
-      rl.write('Please enter a number greater that zero.\n');
-    } else {
-      n = input;
-    }
-  }
-
-  rl.write('Calculating...\n');
-
-  // display progress bar
+function progressBar(n, width) {
   const cursorTo = x => readline.cursorTo(process.stdout, x);
+  const primesGenerator = primes();
+  const size = width - 10;
   const barStepInterval = Math.ceil(n / size);
-  const primesGenerator = sieve();
   const results = [];
   let fill = 0;
   let lastFill = 0;
@@ -79,12 +48,7 @@ async function primeNumbers(N, width) {
   cursorTo(size + 3);
   process.stdout.write('\x1b[33;49m100% \x1b[0m\x1b[?25h');
 
-  // display results
-  rl.write('\n\x1b[33mResults:\n\x1b[32m');
-  rl.write(results.join(', '));
-  rl.close();
-
   return results;
 }
 
-module.exports = primeNumbers;
+module.exports = progressBar;
