@@ -1,0 +1,25 @@
+body {
+  padding: 2rem;
+}
+
+.fancy-button {
+  background: linear-gradient(#e0e0e0 30%, #b0b0b0 70%);
+  box-shadow: 0 0 3px #000000, 0 3px 3px #00000080, 0 0 0 7px #cbcbcb,
+    0 0 0 9px #ffffff, 0 0 0 11px #666666;
+  border-radius: 0.75rem;
+  color: #555555;
+  font: bold 1.75rem sans-serif;
+  padding: 1rem 0;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-shadow: 0 -0.05rem #00000080, 0 0.05rem #ffffff80;
+}
+
+.fancy-button::before,
+.fancy-button::after {
+  color: #888888;
+  content: '\2605';
+  font-size: 2rem;
+  padding: 1rem;
+  vertical-align: -0.1rem;
+}
