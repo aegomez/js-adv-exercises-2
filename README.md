@@ -48,6 +48,16 @@ JavaScript Advanced Exercises 2
     - N must be received as a command-line argument
     - Using ASCII characters create an animated progress bar.
     - Display the results when done.
+24. Create a web app that will allow users to search for movies and save select films in a to-watch list. (WIP)
+
+## HTML/CSS
+
+30. With the given markup create the required designs. Use as little CSS as possible and no additional markup.
+
+    - A checkout button
+    - Input form field and button
+
+31. Create the expected responsive design for different screen sizes.
 
 ## Author
 
